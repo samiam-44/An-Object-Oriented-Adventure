@@ -71,7 +71,7 @@ const adventurer = {
   // robin.companion.companion.inventory = ["small hat", "sunglasses"];
   
   class Adventurer extends Character {
-    static ROLES = ["Fighter", "Healer", "Wizard"]; //Added roles part 4
+    static ROLES = ["Fighter", "Healer", "Wizard", "Ranger"]; //Added roles part 4
     constructor(name, role) {
       super(name);
 if (!Adventurer.ROLES.includes(role)) {
@@ -123,4 +123,28 @@ if (!Adventurer.ROLES.includes(role)) {
   robin.describe();
   robin.companion.describe();
   robin.companion.companion.describe();
+   
+  //Step 4 Adventurer Factory
+  class AdventurerFactory {  
+    constructor (role) {
+      this.role = role;
+      this.adventurers = [];
+    }
+    generate (name) {
+      const newAdventurer = new Adventurer(name, this.role);
+      this.adventurers.push(newAdventurer);
+    }
+    findByIndex (index) {
+      return this.adventurers[index];
+    }
+    findByName (name) {
+      return this.adventurers.find((a) => a.name === name);
+    }
+  }
   
+ const healer = new AdventurerFactory("Healer");
+ healer.generate("Ghandi");
+ healer.generate("Mandrogo");
+
+ console.log(healer.adventurers);
+ console.log(healer.findByName("Ghandi"))
