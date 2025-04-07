@@ -38,9 +38,10 @@ const adventurer = {
   
   // Base class representing any character in the game
   class Character {
+    static MAX_HEALTH = 100;
     constructor(name) {
       this.name = name; //Every character has a name
-      this.health = 100;//Default health is 100 for all character
+      this.health = Character.MAX_HEALTH;//Default health is 100 for all character
       this.inventory = [];//Every character has an inventory that starts empty
     }
   
@@ -70,8 +71,13 @@ const adventurer = {
   // robin.companion.companion.inventory = ["small hat", "sunglasses"];
   
   class Adventurer extends Character {
+    static ROLES = ["Fighter", "Healer", "Wizard"]; //Added roles part 4
     constructor(name, role) {
       super(name);
+if (!Adventurer.ROLES.includes(role)) {
+    throw new Error(`Invalid role: ${role}.`)
+}
+
       // Adventurers have specialized roles.
       this.role = role;
       // Every adventurer starts with a bed and 50 gold coins.
